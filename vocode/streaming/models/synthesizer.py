@@ -176,3 +176,40 @@ class RimeSynthesizerConfig(SynthesizerConfig, type=SynthesizerType.RIME):
             audio_encoding=DEFAULT_AUDIO_ENCODING,
             speaker=speaker,
         )
+
+
+class PlayHtSynthesizerConfig(SynthesizerConfig, type=SynthesizerType.RIME):
+    voice_id: str
+    speed: Optional[str] = None
+    preset: Optional[str] = None
+
+    @classmethod
+    def from_output_device(
+        cls,
+        output_device: BaseOutputDevice,
+        voice_id: str,
+        speed: Optional[str] = None,
+        preset: Optional[str] = None,
+    ):
+        return cls(
+            sampling_rate=output_device.sampling_rate,
+            audio_encoding=output_device.audio_encoding,
+            voice_id=voice_id,
+            speed=speed,
+            preset=preset,
+        )
+
+    @classmethod
+    def from_telephone_output_device(
+        cls,
+        voice_id: str,
+        speed: Optional[str] = None,
+        preset: Optional[str] = None,
+    ):
+        return cls(
+            sampling_rate=DEFAULT_SAMPLING_RATE,
+            audio_encoding=DEFAULT_AUDIO_ENCODING,
+            voice_id=voice_id,
+            speed=speed,
+            preset=preset,
+        )
